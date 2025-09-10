@@ -1,21 +1,18 @@
 import express from "express";
-import dotenv from "dotenv";
-// import { connectDB } from "./config/db.js";
-// import Product from "./models/product.model.js";
-
-// dotenv.config();
+import { connectDB } from "./config/db.js";
+import Product from "./models/product.model.js";
 
 const app = express();
 
+// accept json data from request
 app.use(express.json());
 
 app.post("/api/products", async (req, res) => {
-
   console.log(req.body);
-  const { name, price, image } = req.body;
-  console.log(name,price,image);
 
-  return res.status(200).json({ success: true, message: "Product added successfully" });
+  // TODO: change this with uploading image
+  const { name, price, image } = req.body;
+  console.log(name, price, image);
 
   if (!name || !price || !image) {
     return res
@@ -31,7 +28,7 @@ app.post("/api/products", async (req, res) => {
 
   try {
     await product.save();
-    res.status(201).json(product);
+    res.status(201).json({ success: true, data: product });
   } catch (error) {
     console.error(`Error saving product: ${error.message}`);
     res.status(500).json({ success: false, message: "Failed to save product" });
@@ -39,6 +36,6 @@ app.post("/api/products", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  // connectDB();
+  connectDB();
   console.log("Server running on port 5000");
 });
