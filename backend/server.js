@@ -1,17 +1,21 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connectDB } from "./config/db.js";
-import Product from "./models/product.model.js";
+// import { connectDB } from "./config/db.js";
+// import Product from "./models/product.model.js";
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
+
+app.use(express.json());
 
 app.post("/api/products", async (req, res) => {
 
   console.log(req.body);
-  
   const { name, price, image } = req.body;
+  console.log(name,price,image);
+
+  return res.status(200).json({ success: true, message: "Product added successfully" });
 
   if (!name || !price || !image) {
     return res
@@ -35,6 +39,6 @@ app.post("/api/products", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  connectDB();
+  // connectDB();
   console.log("Server running on port 5000");
 });
