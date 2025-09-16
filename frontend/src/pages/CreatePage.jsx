@@ -1,7 +1,6 @@
 import { Button, Container, Input, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useProductStore } from "../store/product";
-import { toaster } from "../components/ui/toaster";
 
 const CreatePage = () => {
   const [product, setProduct] = useState({
@@ -17,16 +16,31 @@ const CreatePage = () => {
 
     e.preventDefault();
 
-    const {success, message} = await createProduct(product);
-    console.log(success, message);
+    const { status, message } = await createProduct(product);
+    console.log(status, message);
 
-    if(success){
-      toaster({
-        title: "Product created successfully",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
+    if (status) {
+      console.log("Product created successfully");
+
+      // Toast({
+      //   title: "Product created successfully",
+      //   status: "success",
+      //   duration: 3000,
+      //   isClosable: true,
+      // });
+      setProduct({
+        name: "",
+        price: "",
+        image: "",
       });
+    } else {
+      console.log("Product created failed");
+      // Toast({
+      //   title: "Product created failed",
+      //   status: "error",
+      //   duration: 3000,
+      //   isClosable: true,
+      // });
     }
   };
 

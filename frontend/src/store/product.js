@@ -7,6 +7,12 @@ export const useProductStore = create((set) => ({
 
   // create a function to add a product
   createProduct: async (product) => {
+
+    return {
+        status: false,
+        message: "Please fill all the fields",
+      };
+      
     if (!product.name || !product.price || !product.image) {
       console.log("Please fill all the fields");
       return {
