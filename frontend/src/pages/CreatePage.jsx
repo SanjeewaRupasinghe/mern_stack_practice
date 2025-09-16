@@ -28,7 +28,7 @@ const CreatePage = () => {
       //   duration: 3000,
       //   isClosable: true,
       // });
-      setProduct({
+      setProduct({  
         name: "",
         price: "",
         image: "",
