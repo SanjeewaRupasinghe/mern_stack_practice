@@ -21,7 +21,7 @@ const CreatePage = () => {
 
     if (status) {
       console.log("Product created successfully");
-
+      // TODO: add toast
       // Toast({
       //   title: "Product created successfully",
       //   status: "success",
@@ -35,6 +35,7 @@ const CreatePage = () => {
       });
     } else {
       console.log("Product created failed");
+      // TODO: add toast
       // Toast({
       //   title: "Product created failed",
       //   status: "error",

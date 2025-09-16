@@ -47,4 +47,13 @@ export const useProductStore = create((set) => ({
       message: "Product created successfully",
     };
   },
+
+  // fetch all products
+  fetchProducts: async () => {
+    const response = await axios.get("http://localhost:5000/api/products");
+    const data = response.data.data;
+    set((state) => ({
+      products: data,
+    }));
+  },
 }));
