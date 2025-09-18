@@ -7,7 +7,6 @@ export const useProductStore = create((set) => ({
 
   // create a function to add a product
   createProduct: async (product) => {
-
     if (!product.name || !product.price || !product.image) {
       console.log("Please fill all the fields");
       return {
@@ -16,7 +15,7 @@ export const useProductStore = create((set) => ({
       };
     }
 
-    if(isNaN(product.price)) {
+    if (isNaN(product.price)) {
       console.log("Price must be a number");
       return {
         status: false,
@@ -54,6 +53,42 @@ export const useProductStore = create((set) => ({
     const data = response.data.data;
     set((state) => ({
       products: data,
+    }));
+  },
+
+  // update a product
+  updateProduct: async (id, product) => {
+    const response = await axios.put(
+      `http://localhost:5000/api/products/${id}`,
+      product,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify(product),
+      }
+    );
+    console.log(response);
+    const data = response.data;
+    console.log(data);
+    set((state) => ({
+      products: state.products.map((product) =>
+        product._id === id ? data : product
+      ),
+    }));
+  },
+
+  // delete a product
+  deleteProduct: async (id) => {
+    const response = await axios.delete(
+      `http://localhost:5000/api/products/${id}`
+    );
+    console.log(response);
+    const data = response.data;
+    console.log(data);
+    set((state) => ({
+      products: state.products.filter((product) => product._id !== id),
     }));
   },
 }));
